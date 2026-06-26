@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html dir='rtl' lang='ar'>
+<head>
+<meta content='width=device-width, initial-scale=1.0' name='viewport'/>
+<meta content='text/html; charset=UTF-8' http-equiv='Content-Type'/>
+<title>روايات</title>
+<style type='text/css'>
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:'Segoe UI',Tahoma,Arial,'Noto Sans Arabic',sans-serif;background:#fff;color:#333;line-height:1.7;}
+a{text-decoration:none;color:inherit;}
+.nav{background:#8B1A1A;color:#fff;}
+.nav-top{max-width:1200px;margin:0 auto;padding:10px 24px;display:flex;justify-content:space-between;align-items:center;font-size:13px;}
+.nav-top a{color:rgba(255,255,255,0.8);margin-right:20px;font-size:13px;}
+.nav-top a:hover{color:#fff;}
+.nav-main{max-width:1200px;margin:0 auto;padding:0 24px 12px;display:flex;align-items:center;justify-content:space-between;}
+.nav-brand{font-size:28px;font-weight:800;color:#fff;}
+.nav-cats{display:flex;gap:24px;}
+.nav-cats a{color:#fff;font-size:14px;font-weight:500;padding:6px 0;}
+.nav-cats a:hover{opacity:0.8;}
+.nav-search{background:rgba(255,255,255,0.15);border:none;border-radius:6px;padding:8px 14px;color:#fff;font-size:13px;width:220px;outline:none;}
+.nav-search::placeholder{color:rgba(255,255,255,0.5);}
+.novels-section{max-width:1200px;margin:0 auto;padding:24px;}
+.novels-section h2{font-size:20px;font-weight:700;margin-bottom:20px;padding-bottom:10px;border-bottom:2px solid #8B1A1A;display:inline-block;}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:20px;}
+.novel-card{display:flex;gap:14px;padding:14px;border:1px solid #eee;border-radius:8px;transition:box-shadow 0.2s;}
+.novel-card:hover{box-shadow:0 4px 16px rgba(0,0,0,0.06);}
+.novel-card .card-cover{width:80px;height:110px;background:linear-gradient(135deg,#ddd,#bbb);border-radius:6px;flex-shrink:0;}
+.novel-card .card-body{flex:1;min-width:0;}
+.novel-card .card-title{font-size:14px;font-weight:700;margin-bottom:6px;line-height:1.4;}
+.novel-card .card-desc{font-size:12px;color:#777;line-height:1.6;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden;margin-bottom:8px;}
+.novel-card .card-meta{font-size:11px;color:#aaa;}
+.post{display:flex;gap:14px;padding:14px;border:1px solid #eee;border-radius:8px;margin-bottom:12px;transition:box-shadow 0.2s;}
+.post:hover{box-shadow:0 4px 16px rgba(0,0,0,0.06);}
+.post-info{flex:1;min-width:0;}
+.post-title a{font-size:15px;font-weight:700;line-height:1.4;display:block;margin-bottom:6px;}
+.post-title a:hover{color:#8B1A1A;}
+.post-snippet{font-size:13px;color:#777;line-height:1.6;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;margin-bottom:6px;}
+.post-meta{font-size:11px;color:#aaa;}
+.read-page{max-width:780px;margin:0 auto;padding:40px 24px;}
+.read-header{text-align:center;margin-bottom:28px;padding-bottom:20px;border-bottom:1px solid #eee;}
+.read-header h1{font-size:22px;font-weight:700;margin-bottom:6px;}
+.read-header .read-meta{color:#888;font-size:13px;}
+.post-body{font-size:17px;line-height:2.2;color:#333;}
+.post-body p{margin-bottom:16px;}
+.read-nav{display:flex;justify-content:space-between;margin-top:32px;padding-top:20px;border-top:1px solid #eee;}
+.read-nav a{background:#8B1A1A;color:#fff;text-decoration:none;padding:10px 28px;border-radius:6px;font-size:14px;font-weight:600;}
+.read-nav a:hover{background:#6d1414;}
+.read-nav .disabled{background:#ccc;cursor:default;pointer-events:none;}
+.ad-slot{background:#f9f9f9;border:1px dashed #ddd;border-radius:8px;padding:20px;text-align:center;color:#bbb;font-size:12px;margin:24px 0;}
+.footer{background:#333;color:#aaa;padding:40px 0 20px;margin-top:48px;}
+.footer-inner{max-width:1200px;margin:0 auto;padding:0 24px;display:grid;grid-template-columns:1.5fr 1fr 1fr;gap:32px;}
+.footer h4{color:#fff;font-size:14px;margin-bottom:14px;}
+.footer p{font-size:13px;line-height:1.8;}
+.footer a{color:#aaa;text-decoration:none;font-size:13px;display:block;margin-bottom:8px;}
+.footer a:hover{color:#fff;}
+.footer-copy{max-width:1200px;margin:0 auto;padding:20px 24px 0;margin-top:28px;border-top:1px solid rgba(255,255,255,0.1);font-size:12px;text-align:center;}
+.loading{text-align:center;padding:40px;color:#999;}
+.loading::after{content:'';display:inline-block;width:20px;height:20px;border:2px solid #ddd;border-top-color:#8B1A1A;border-radius:50%;animation:spin 0.8s linear infinite;margin-right:8px;vertical-align:middle;}
+@keyframes spin{to{transform:rotate(360deg);}}
+.breadcrumb{max-width:1200px;margin:0 auto;padding:16px 24px;font-size:13px;color:#888;}
+.breadcrumb a{color:#8B1A1A;}
+.tab-bar{display:flex;gap:0;margin-bottom:20px;border-bottom:2px solid #eee;}
+.tab-bar a{padding:10px 20px;font-size:14px;font-weight:600;color:#888;border-bottom:2px solid transparent;margin-bottom:-2px;transition:all 0.2s;}
+.tab-bar a.active{color:#8B1A1A;border-bottom-color:#8B1A1A;}
+.tab-bar a:hover{color:#8B1A1A;}
+@media(max-width:768px){
+.nav-main{flex-wrap:wrap;gap:12px;}
+.nav-cats{flex-wrap:wrap;gap:12px;}
+.footer-inner{grid-template-columns:1fr;}
+.post{flex-direction:column;}
+.grid{grid-template-columns:repeat(auto-fill,minmax(200px,1fr));}
+}
+</style>
+</head>
+<body>
+<div class='nav'>
+<div class='nav-top'>
+<div>
+<a href='https://zhaozhaowu.blogspot.com/'>الرئيسية</a>
+<a href='/p/contact.html'>اتصل بنا</a>
+<a href='/p/privacy.html'>سياسة الخصوصية</a>
+</div>
+<div>
+<a href='https://t.me/withmewe'>Telegram</a>
+</div>
+</div>
+<div class='nav-main'>
+<a class='nav-brand' href='https://zhaozhaowu.blogspot.com/'>روايات</a>
+<div class='nav-cats'>
+<a href='https://zhaozhaowu.blogspot.com/'>الرئيسية</a>
+<a href='/search/label/رومانسية'>روايات رومانسية</a>
+<a href='/search/label/خيالية'>روايات خيالية</a>
+<a href='/search/label/مكتملة'>روايات مكتملة</a>
+<a href='/search'>الأحدث</a>
+</div>
+<form action='https://zhaozhaowu.blogspot.com/search' class='nav-search'>
+<input name='q' placeholder='ابحث عن رواية...' type='text'/>
+</form>
+</div>
+</div>
+<div class='breadcrumb' id='breadcrumb'></div>
+<div id='content'><div class='loading'>جاري التحميل...</div></div>
+<div style='max-width:1200px;margin:0 auto;padding:0 24px;'><div class='ad-slot' style='display:none;'></div></div>
+<div class='footer'>
+<div class='footer-inner'>
+<div><h4>روايات</h4><p>منصة عربية لقراءة الروايات بجودة عالية. نقدم لكم أحدث وأشهر الروايات مجانا.</p></div>
+<div><h4>روابط سريعة</h4><a href='https://zhaozhaowu.blogspot.com/'>الرئيسية</a><a href='/search/label/مكتملة'>روايات مكتملة</a><a href='/p/contact.html'>اتصل بنا</a></div>
+<div><h4>تواصل معنا</h4><a href='https://t.me/withmewe'>قناة Telegram</a></div>
+</div>
+<div class='footer-copy'>جميع الحقوق محفوظة 2026</div>
+</div>
+
+<script>
+var BLOG_URL='https://zhaozhaowu.blogspot.com';
+var content=document.getElementById('content');
+var bc=document.getElementById('breadcrumb');
+var ALL_POSTS=[];
+
+function esc(s){var d=document.createElement('div');d.appendChild(document.createTextNode(s||''));return d.innerHTML;}
+
+function parsePost(e){
+  var t=e.title?e.title.$t:'';
+  var link='';
+  for(var i=0;i<(e.link||[]).length;i++){if(e.link[i].rel==='alternate'){link=e.link[i].href;break;}}
+  var c=e.content?e.content.$t:'';
+  var sn=c.replace(/<[^>]+>/g,'').substring(0,200);
+  var pub=e.published?e.published.$t:'';
+  var lb=[];
+  if(e.category)for(var i=0;i<e.category.length;i++)lb.push(e.category[i].term);
+  var cm=t.match(/الفصل\s+(\d+)/);
+  var cn=cm?parseInt(cm[1]):0;
+  var tm=t.match(/من\s+(\d+)/);
+  var tc=tm?parseInt(tm[1]):0;
+  var nn=t.replace(/\s*-\s*الفصل\s+\d+.*$/,'').trim();
+  return{title:t,link:link,content:c,snippet:sn,published:pub,labels:lb,chapterNum:cn,totalChapters:tc,novelName:nn};
+}
+
+function groupByNovel(posts){
+  var novels={};
+  posts.forEach(function(p){
+    if(!novels[p.novelName])novels[p.novelName]={name:p.novelName,chapters:[],label:p.labels[0]||''};
+    novels[p.novelName].chapters.push(p);
+  });
+  Object.values(novels).forEach(function(n){
+    n.chapters.sort(function(a,b){return a.chapterNum-b.chapterNum;});
+    n.latest=n.chapters[n.chapters.length-1];
+    n.total=n.chapters.length;
+  });
+  return Object.values(novels).sort(function(a,b){return new Date(b.latest.published)-new Date(a.latest.published);});
+}
+
+// ===== HOMEPAGE =====
+function renderHome(){
+  bc.innerHTML='<a href="'+BLOG_URL+'">الرئيسية</a>';
+  document.title='روايات';
+  var novels=groupByNovel(ALL_POSTS);
+  var h='';
+
+  // Latest updates
+  h+='<div class="novels-section"><h2>آخر التحديثات</h2><div class="grid">';
+  novels.forEach(function(n){
+    var ch=n.latest;
+    h+='<div class="novel-card"><div class="card-cover"></div><div class="card-body">';
+    h+='<a href="'+ch.link+'"><div class="card-title">'+esc(ch.title)+'</div></a>';
+    h+='<div class="card-desc">'+esc(ch.snippet)+'</div>';
+    h+='<div class="card-meta">'+n.total+' فصل'+(n.label?' · '+n.label:'')+'</div>';
+    h+='</div></div>';
+  });
+  h+='</div></div>';
+
+  // Tab bar for novels
+  h+='<div class="novels-section"><div class="tab-bar">';
+  novels.forEach(function(n,i){
+    h+='<a href="#novel-'+i+'" class="'+(i===0?'active':'')+'">'+esc(n.name)+' ('+n.total+')</a>';
+  });
+  h+='</div>';
+
+  // Novel chapter lists
+  novels.forEach(function(n,i){
+    h+='<div id="novel-'+i+'" style="'+(i>0?'display:none;':'')+'">';
+    h+='<div class="grid" style="grid-template-columns:1fr;">';
+    n.chapters.forEach(function(ch){
+      h+='<div class="post" style="margin-bottom:0;"><div class="post-info">';
+      h+='<div class="post-title"><a href="'+ch.link+'">'+esc(ch.title)+'</a></div>';
+      h+='<div class="post-snippet">'+esc(ch.snippet)+'</div></div></div>';
+    });
+    h+='</div></div>';
+  });
+  h+='</div>';
+
+  content.innerHTML=h;
+
+  // Tab switching
+  var tabs=document.querySelectorAll('.tab-bar a');
+  var panels=content.querySelectorAll('[id^="novel-"]');
+  tabs.forEach(function(tab,idx){
+    tab.addEventListener('click',function(e){
+      e.preventDefault();
+      tabs.forEach(function(t){t.classList.remove('active');});
+      tab.classList.add('active');
+      panels.forEach(function(p){p.style.display='none';});
+      panels[idx].style.display='block';
+    });
+  });
+}
+
+// ===== POST =====
+function renderPost(slug){
+  var cur=null;
+  for(var i=0;i<ALL_POSTS.length;i++){
+    if(ALL_POSTS[i].link.indexOf(slug)>-1){cur=ALL_POSTS[i];break;}
+  }
+  if(!cur){content.innerHTML='<div class="read-page">المقال غير موجود</div>';return;}
+  document.title=cur.title+' - روايات';
+  var sn=ALL_POSTS.filter(function(p){return p.novelName===cur.novelName;});
+  sn.sort(function(a,b){return a.chapterNum-b.chapterNum;});
+  var prev=null,next=null;
+  for(var i=0;i<sn.length;i++){
+    if(sn[i].chapterNum===cur.chapterNum){
+      if(i>0)prev=sn[i-1];
+      if(i<sn.length-1)next=sn[i+1];
+      break;
+    }
+  }
+  bc.innerHTML='<a href="'+BLOG_URL+'">الرئيسية</a> &rsaquo; <a href="/search/label/'+encodeURIComponent(cur.labels[0]||'')+'">'+esc(cur.novelName)+'</a> &rsaquo; الفصل '+cur.chapterNum;
+  var h='<div class="read-page"><div class="read-header"><h1>'+esc(cur.title)+'</h1>';
+  h+='<div class="read-meta">الفصل '+cur.chapterNum;
+  if(cur.totalChapters)h+=' من '+cur.totalChapters;
+  h+='</div></div><div class="post-body">'+cur.content+'</div>';
+  h+='<div class="ad-slot">إعلان</div>';
+  h+='<div class="read-nav">';
+  if(prev)h+='<a href="'+prev.link+'">← الفصل السابق</a>';else h+='<span class="disabled">الفصل السابق</span>';
+  h+='<a href="'+BLOG_URL+'">الرئيسية</a>';
+  if(next)h+='<a href="'+next.link+'">الفصل التالي →</a>';else h+='<span class="disabled">الفصل التالي</span>';
+  h+='</div><div style="text-align:center;margin-top:24px;"><a href="/search/label/'+encodeURIComponent(cur.labels[0]||'')+'" style="color:#8B1A1A;font-weight:600;">عرض جميع فصول '+esc(cur.novelName)+'</a></div></div>';
+  content.innerHTML=h;
+}
+
+// ===== LABEL =====
+function renderLabel(label){
+  bc.innerHTML='<a href="'+BLOG_URL+'">الرئيسية</a> &rsaquo; '+esc(label);
+  document.title=label+' - روايات';
+  var filtered=ALL_POSTS.filter(function(p){return p.labels.indexOf(label)>-1;});
+  var novels=groupByNovel(filtered);
+  var h='<div class="novels-section"><h2>'+esc(label)+'</h2>';
+  if(novels.length===0){h+='<p style="color:#888;">لم يتم العثور على نتائج</p>';}
+  novels.forEach(function(n){
+    h+='<div style="margin-bottom:32px;"><h3 style="font-size:16px;margin-bottom:12px;">'+esc(n.name)+' <span style="color:#888;font-weight:400;">('+n.total+' فصل)</span></h3>';
+    h+='<div class="grid" style="grid-template-columns:1fr;">';
+    n.chapters.forEach(function(ch){
+      h+='<div class="post" style="margin-bottom:0;"><div class="post-info"><div class="post-title"><a href="'+ch.link+'">'+esc(ch.title)+'</a></div><div class="post-snippet">'+esc(ch.snippet)+'</div></div></div>';
+    });
+    h+='</div></div>';
+  });
+  h+='</div>';
+  content.innerHTML=h;
+}
+
+// ===== LOAD DATA & ROUTE =====
+fetch('feed_data.json').then(function(r){return r.json();}).then(function(data){
+  var entries=data.feed.entry||[];
+  ALL_POSTS=entries.map(parsePost);
+
+  var path=window.location.pathname;
+  var params=new URLSearchParams(window.location.search);
+  var lm=path.match(/\/search\/label\/(.+)/);
+  if(lm)renderLabel(decodeURIComponent(lm[1]));
+  else if(path.indexOf('/search')===0&&params.get('q'))renderLabel(params.get('q'));
+  else if(path.match(/\/\d{4}\/\d{2}\//)&&path.indexOf('.html')>-1)renderPost(path);
+  else renderHome();
+}).catch(function(e){
+  content.innerHTML='<div class="loading">خطأ في تحميل البيانات</div>';
+  console.error(e);
+});
+</script>
+</body>
+</html>

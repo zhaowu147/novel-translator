@@ -1,0 +1,316 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<html dir='rtl' xmlns='http://www.w3.org/1999/xhtml' xmlns:b='http://www.google.com/2005/gml/b' xmlns:data='http://www.google.com/2005/gml/data' xmlns:expr='http://www.google.com/2005/gml/expr'>
+<head>
+<meta content='width=device-width, initial-scale=1.0' name='viewport'/>
+<b:include data='blog' name='all-head-content'/>
+<title><data:blog.pageTitle/></title>
+<b:skin><![CDATA[
+/* ===== RESET ===== */
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:'Segoe UI',Tahoma,Arial,'Noto Sans Arabic',sans-serif;background:#fff;color:#333;line-height:1.7;}
+a{text-decoration:none;color:inherit;}
+/* ===== NAV ===== */
+.nav{background:#8B1A1A;color:#fff;}
+.nav-top{max-width:1200px;margin:0 auto;padding:10px 24px;display:flex;justify-content:space-between;align-items:center;font-size:13px;}
+.nav-top a{color:rgba(255,255,255,0.8);margin-right:20px;font-size:13px;}
+.nav-top a:hover{color:#fff;}
+.nav-main{max-width:1200px;margin:0 auto;padding:0 24px 12px;display:flex;align-items:center;justify-content:space-between;}
+.nav-brand{font-size:28px;font-weight:800;color:#fff;letter-spacing:-0.5px;}
+.nav-cats{display:flex;gap:24px;}
+.nav-cats a{color:#fff;font-size:14px;font-weight:500;padding:6px 0;}
+.nav-cats a:hover{opacity:0.8;}
+.nav-search{background:rgba(255,255,255,0.15);border:none;border-radius:6px;padding:8px 14px;color:#fff;font-size:13px;width:220px;outline:none;}
+.nav-search::placeholder{color:rgba(255,255,255,0.5);}
+/* ===== NOVEL GRID ===== */
+.novels-grid{max-width:1200px;margin:0 auto;padding:24px;}
+.novels-grid h2{font-size:20px;font-weight:700;margin-bottom:20px;}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:20px;}
+.novel-card{display:flex;gap:14px;padding:14px;border:1px solid #eee;border-radius:8px;transition:box-shadow 0.2s;}
+.novel-card:hover{box-shadow:0 4px 16px rgba(0,0,0,0.06);}
+.novel-card .card-cover{width:80px;height:110px;background:#eee;border-radius:6px;flex-shrink:0;overflow:hidden;}
+.novel-card .card-cover img{width:100%;height:100%;object-fit:cover;}
+.novel-card .card-body{flex:1;min-width:0;}
+.novel-card .card-title{font-size:14px;font-weight:700;margin-bottom:6px;line-height:1.4;}
+.novel-card .card-desc{font-size:12px;color:#777;line-height:1.6;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden;margin-bottom:8px;}
+.novel-card .card-meta{font-size:11px;color:#aaa;}
+/* ===== POST LIST ===== */
+.post-outer{max-width:1200px;margin:0 auto;padding:24px;}
+.post{display:flex;gap:14px;padding:14px;border:1px solid #eee;border-radius:8px;margin-bottom:16px;transition:box-shadow 0.2s;}
+.post:hover{box-shadow:0 4px 16px rgba(0,0,0,0.06);}
+.post-thumb{width:80px;height:110px;background:#eee;border-radius:6px;flex-shrink:0;overflow:hidden;}
+.post-thumb img{width:100%;height:100%;object-fit:cover;}
+.post-info{flex:1;min-width:0;}
+.post-title a{font-size:15px;font-weight:700;line-height:1.4;display:block;margin-bottom:6px;}
+.post-title a:hover{color:#8B1A1A;}
+.post-snippet{font-size:13px;color:#777;line-height:1.6;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden;margin-bottom:8px;}
+.post-meta{font-size:11px;color:#aaa;}
+/* ===== NOVEL DETAIL ===== */
+.novel-hero{max-width:1200px;margin:0 auto;padding:32px 24px;display:flex;gap:28px;}
+.novel-cover{width:200px;height:280px;background:#eee;border-radius:8px;flex-shrink:0;overflow:hidden;}
+.novel-cover img{width:100%;height:100%;object-fit:cover;}
+.novel-detail{flex:1;}
+.novel-detail h1{font-size:24px;font-weight:800;margin-bottom:8px;}
+.novel-detail .meta{color:#888;font-size:13px;margin-bottom:14px;}
+.novel-detail .meta span{margin-left:16px;}
+.novel-detail .synopsis{font-size:15px;color:#555;line-height:1.9;margin-bottom:20px;}
+.novel-detail .start-btn{background:#8B1A1A;color:#fff;border:none;padding:10px 32px;border-radius:6px;font-size:15px;font-weight:700;cursor:pointer;}
+.novel-detail .start-btn:hover{background:#6d1414;}
+/* ===== CHAPTER LIST ===== */
+.chapters{max-width:1200px;margin:0 auto;padding:24px;}
+.ch-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:20px;}
+.ch-header h2{font-size:20px;font-weight:700;}
+.ch-header span{color:#888;font-size:13px;}
+.ch-item{display:flex;align-items:center;gap:16px;padding:14px 16px;border-bottom:1px solid #f0f0f0;transition:background 0.2s;}
+.ch-item:hover{background:#fafafa;}
+.ch-info{flex:1;min-width:0;}
+.ch-title{font-size:14px;font-weight:600;color:#333;margin-bottom:4px;}
+.ch-meta{font-size:12px;color:#999;}
+.ch-read{background:#8B1A1A;color:#fff;border:none;padding:6px 18px;border-radius:4px;font-size:12px;font-weight:600;cursor:pointer;flex-shrink:0;}
+.ch-read:hover{background:#6d1414;}
+/* ===== READING PAGE ===== */
+.read-page{max-width:780px;margin:0 auto;padding:40px 24px;}
+.read-header{text-align:center;margin-bottom:28px;padding-bottom:20px;border-bottom:1px solid #eee;}
+.read-header h1{font-size:22px;font-weight:700;margin-bottom:6px;}
+.read-header .read-meta{color:#888;font-size:13px;}
+.post-body{font-size:17px;line-height:2.2;color:#333;}
+.post-body p{margin-bottom:16px;}
+.read-nav{display:flex;justify-content:space-between;margin-top:32px;padding-top:20px;border-top:1px solid #eee;}
+.read-nav a{background:#8B1A1A;color:#fff;text-decoration:none;padding:10px 28px;border-radius:6px;font-size:14px;font-weight:600;}
+.read-nav a:hover{background:#6d1414;}
+.read-nav a.disabled{background:#ccc;cursor:default;}
+/* ===== AD SLOT ===== */
+.ad-slot{background:#f9f9f9;border:1px dashed #ddd;border-radius:8px;padding:20px;text-align:center;color:#bbb;font-size:12px;margin:24px 0;}
+/* ===== FOOTER ===== */
+.footer{background:#333;color:#aaa;padding:40px 0 20px;margin-top:48px;}
+.footer-inner{max-width:1200px;margin:0 auto;padding:0 24px;display:grid;grid-template-columns:1.5fr 1fr 1fr;gap:32px;}
+.footer h4{color:#fff;font-size:14px;margin-bottom:14px;}
+.footer p{font-size:13px;line-height:1.8;}
+.footer a{color:#aaa;text-decoration:none;font-size:13px;display:block;margin-bottom:8px;}
+.footer a:hover{color:#fff;}
+.footer-copy{max-width:1200px;margin:0 auto;padding:20px 24px 0;margin-top:28px;border-top:1px solid rgba(255,255,255,0.1);font-size:12px;text-align:center;}
+/* ===== RELATED ===== */
+.related{max-width:1200px;margin:0 auto;padding:24px;}
+.related h2{font-size:18px;font-weight:700;margin-bottom:16px;}
+.related-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:16px;}
+.related-card{text-align:center;}
+.related-card .r-cover{width:100%;height:220px;background:#eee;border-radius:8px;margin-bottom:10px;overflow:hidden;}
+.related-card .r-cover img{width:100%;height:100%;object-fit:cover;}
+.related-card .r-title{font-size:13px;font-weight:600;line-height:1.4;}
+/* ===== BLOGGER PAGER ===== */
+.blog-pager{max-width:1200px;margin:0 auto;padding:24px;text-align:center;}
+.blog-pager a{background:#8B1A1A;color:#fff;padding:10px 28px;border-radius:6px;font-size:14px;font-weight:600;}
+.blog-pager a:hover{background:#6d1414;}
+/* ===== COMMENTS ===== */
+.comments{max-width:780px;margin:0 auto;padding:24px;}
+/* ===== BREADCRUMB ===== */
+.breadcrumb{max-width:1200px;margin:0 auto;padding:16px 24px;font-size:13px;color:#888;}
+.breadcrumb a{color:#8B1A1A;}
+.breadcrumb a:hover{text-decoration:underline;}
+/* ===== LOADING ===== */
+.loading{text-align:center;padding:40px;color:#999;}
+.loading::after{content:'';display:inline-block;width:20px;height:20px;border:2px solid #ddd;border-top-color:#8B1A1A;border-radius:50%;animation:spin 0.8s linear infinite;margin-right:8px;vertical-align:middle;}
+@keyframes spin{to{transform:rotate(360deg);}}
+/* ===== RESPONSIVE ===== */
+@media(max-width:768px){
+.nav-main{flex-wrap:wrap;gap:12px;}
+.nav-cats{flex-wrap:wrap;gap:12px;}
+.novel-hero{flex-direction:column;align-items:center;text-align:center;}
+.novel-cover{width:160px;height:220px;}
+.footer-inner{grid-template-columns:1fr;}
+.post{flex-direction:column;}
+.post-thumb{width:100%;height:180px;}
+}
+]]></b:skin>
+</head>
+<body class='index'>
+<!-- NAV -->
+<div class='nav'>
+<div class='nav-top'>
+<div>
+<a expr:href='data:blog.homepageUrl'>الرئيسية</a>
+<a href='/p/contact.html'>اتصل بنا</a>
+<a href='/p/privacy.html'>سياسة الخصوصية</a>
+</div>
+<div>
+<a href='https://t.me/withmewe'>Telegram</a>
+</div>
+</div>
+<div class='nav-main'>
+<a class='nav-brand' expr:href='data:blog.homepageUrl'>روايات</a>
+<div class='nav-cats'>
+<a expr:href='data:blog.homepageUrl'>الرئيسية</a>
+<a href='/search/label/رومانسية'>روايات رومانسية</a>
+<a href='/search/label/خيالية'>روايات خيالية</a>
+<a href='/search/label/مكتملة'>روايات مكتملة</a>
+<a href='/search'>الأحدث</a>
+</div>
+<form expr:action='data:blog.searchUrl' class='nav-search'>
+<input name='q' placeholder='ابحث عن رواية...' type='text'/>
+</form>
+</div>
+</div>
+<!-- BREADCRUMB -->
+<div class='breadcrumb' id='breadcrumb'></div>
+<!-- MAIN CONTENT -->
+<b:section class='main' id='main' showaddelement='yes'>
+<b:widget id='Blog1' locked='true' title='المشاركات في المدونة' type='Blog'>
+<b:includable id='main'>
+<div id='content'>
+<div class='loading'>جاري التحميل...</div>
+</div>
+</b:includable>
+</b:widget>
+</b:section>
+<!-- FOOTER -->
+<div class='footer'>
+<div class='footer-inner'>
+<div>
+<h4>روايات</h4>
+<p>منصة عربية لقراءة الروايات بجودة عالية. نقدم لكم أحدث وأشهر الروايات مجاناً.</p>
+</div>
+<div>
+<h4>روابط سريعة</h4>
+<a expr:href='data:blog.homepageUrl'>الرئيسية</a>
+<a href='/search/label/مكتملة'>روايات مكتملة</a>
+<a href='/search/label/مستمرة'>روايات مستمرة</a>
+<a href='/p/contact.html'>اتصل بنا</a>
+</div>
+<div>
+<h4>تواصل معنا</h4>
+<a href='https://t.me/withmewe'>قناة Telegram</a>
+</div>
+</div>
+<div class='footer-copy'>جميع الحقوق محفوظة 2026</div>
+</div>
+<script type='text/javascript'>
+//<![CDATA[
+(function(){
+  var BLOG_URL = '<data:blog.homepageUrl/>';
+  var FEED_BASE = BLOG_URL + 'feeds/posts/default';
+  var content = document.getElementById('content');
+  var breadcrumb = document.getElementById('breadcrumb');
+
+  function getPageType() {
+    var path = window.location.pathname;
+    var params = new URLSearchParams(window.location.search);
+    var labelMatch = path.match(/\/search\/label\/(.+)/);
+    if (labelMatch) return { type: 'label', label: decodeURIComponent(labelMatch[1]) };
+    if (path.indexOf('/search') === 0 && params.get('q')) return { type: 'search', query: params.get('q') };
+    if (path.match(/\/\d{4}\/\d{2}\//) && path.indexOf('.html') > -1) return { type: 'post', slug: path };
+    return { type: 'home' };
+  }
+
+  function fetchJSON(url) { return fetch(url).then(function(r) { return r.json(); }); }
+
+  function parsePost(entry) {
+    var title = entry.title ? entry.title.$t : '';
+    var link = '';
+    for (var i = 0; i < (entry.link || []).length; i++) {
+      if (entry.link[i].rel === 'alternate') { link = entry.link[i].href; break; }
+    }
+    var c = entry.content ? entry.content.$t || '' : '';
+    var sn = c.replace(/<[^>]+>/g, '').substring(0, 200);
+    var pub = entry.published ? entry.published.$t : '';
+    var lb = [];
+    if (entry.category) { for (var i = 0; i < entry.category.length; i++) lb.push(entry.category[i].term); }
+    var cm = title.match(/الفصل\s+(\d+)/);
+    var cn = cm ? parseInt(cm[1]) : 0;
+    var tm = title.match(/من\s+(\d+)/);
+    var tc = tm ? parseInt(tm[1]) : 0;
+    var nn = title.replace(/\s*-\s*الفصل\s+\d+.*$/, '').trim();
+    return { title:title, link:link, content:c, snippet:sn, published:pub, labels:lb, chapterNum:cn, totalChapters:tc, novelName:nn };
+  }
+
+  function groupByNovel(posts) {
+    var novels = {};
+    posts.forEach(function(p) {
+      if (!novels[p.novelName]) novels[p.novelName] = { name:p.novelName, chapters:[], label:p.labels[0]||'' };
+      novels[p.novelName].chapters.push(p);
+    });
+    Object.values(novels).forEach(function(n) {
+      n.chapters.sort(function(a,b){return a.chapterNum-b.chapterNum;});
+      n.latest = n.chapters[n.chapters.length-1];
+      n.total = n.chapters.length;
+    });
+    return Object.values(novels).sort(function(a,b){return new Date(b.latest.published)-new Date(a.latest.published);});
+  }
+
+  function esc(s) { var d = document.createElement('div'); d.appendChild(document.createTextNode(s||'')); return d.innerHTML; }
+
+  function renderHome() {
+    breadcrumb.innerHTML = '<a href="' + BLOG_URL + '">الرئيسية</a>';
+    document.title = 'روايات';
+    fetchJSON(FEED_BASE + '?alt=json&max-results=200').then(function(data) {
+      var entries = data.feed.entry || [];
+      var posts = entries.map(parsePost);
+      var novels = groupByNovel(posts);
+      var h = '';
+      h += '<div class="novels-section"><h2>آخر التحديثات</h2><div class="grid">';
+      novels.forEach(function(n) {
+        var ch = n.latest;
+        h += '<div class="novel-card"><div class="card-cover"></div><div class="card-body">';
+        h += '<a href="' + ch.link + '"><div class="card-title">' + esc(ch.title) + '</div></a>';
+        h += '<div class="card-desc">' + esc(ch.snippet) + '</div>';
+        h += '<div class="card-meta">' + n.total + ' فصل' + (n.label ? ' · ' + n.label : '') + '</div>';
+        h += '</div></div>';
+      });
+      h += '</div></div>';
+      novels.forEach(function(n) {
+        h += '<div class="novels-section"><h2>' + esc(n.name) + ' <span style="font-size:14px;font-weight:400;color:#888;">(' + n.total + ' فصل)</span></h2>';
+        h += '<div class="grid" style="grid-template-columns:1fr;">';
+        n.chapters.forEach(function(ch) {
+          h += '<div class="post" style="margin-bottom:0;"><div class="post-info">';
+          h += '<div class="post-title"><a href="' + ch.link + '">' + esc(ch.title) + '</a></div>';
+          h += '<div class="post-snippet">' + esc(ch.snippet) + '</div></div></div>';
+        });
+        h += '</div></div>';
+      });
+      content.innerHTML = h;
+    }).catch(function() {
+      content.innerHTML = '<div class="loading">خطأ في تحميل المحتوى</div>';
+    });
+  }
+
+  function renderPost(slug) {
+    fetchJSON(FEED_BASE + '?alt=json&max-results=200').then(function(data) {
+      var entries = data.feed.entry || [];
+      var posts = entries.map(parsePost);
+      var cur = null;
+      for (var i = 0; i < posts.length; i++) {
+        if (posts[i].link.indexOf(slug) > -1) { cur = posts[i]; break; }
+      }
+      if (!cur) { content.innerHTML = '<div class="read-page">المقال غير موجود</div>'; return; }
+      document.title = cur.title + ' - روايات';
+      var sn = posts.filter(function(p){return p.novelName===cur.novelName;});
+      sn.sort(function(a,b){return a.chapterNum-b.chapterNum;});
+      var prev=null, next=null;
+      for (var i=0;i<sn.length;i++){
+        if(sn[i].chapterNum===cur.chapterNum){
+          if(i>0)prev=sn[i-1];if(i<sn.length-1)next=sn[i+1];break;
+        }
+      }
+      breadcrumb.innerHTML = '<a href="' + BLOG_URL + '">الرئيسية</a> &rsaquo; <a href="/search/label/' + encodeURIComponent(cur.labels[0]||'') + '">' + esc(cur.novelName) + '</a> &rsaquo; الفصل ' + cur.chapterNum;
+      var h = '<div class="read-page"><div class="read-header"><h1>' + esc(cur.title) + '</h1>';
+      h += '<div class="read-meta">الفصل ' + cur.chapterNum;
+      if(cur.totalChapters)h+=' من '+cur.totalChapters;
+      h+='</div></div><div class="post-body">'+cur.content+'</div>';
+      h+='<div class="ad-slot">إعلان</div><div class="read-nav">';
+      if(prev)h+='<a href="'+prev.link+'">← الفصل السابق</a>';else h+='<span class="disabled">الفصل السابق</span>';
+      h+='<a href="'+BLOG_URL+'">الرئيسية</a>';
+      if(next)h+='<a href="'+next.link+'">الفصل التالي →</a>';else h+='<span class="disabled">الفصل التالي</span>';
+      h+='</div><div style="text-align:center;margin-top:24px;"><a href="/search/label/'+encodeURIComponent(cur.labels[0]||'')+'" style="color:#8B1A1A;font-weight:600;">عرض جميع فصول '+esc(cur.novelName)+'</a></div></div>';
+      content.innerHTML = h;
+    }).catch(function(){content.innerHTML='<div class="read-page">خطأ في تحميل المحتوى</div>';});
+  }
+
+  var page = getPageType();
+  switch(page.type){
+    case 'home':renderHome();break;
+    case 'post':renderPost(page.slug);break;
+    default:renderHome();
+  }
+})();
+//]]>
+</script>
+</body>
+</html>
