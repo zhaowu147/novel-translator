@@ -10,25 +10,25 @@ from prompts import JA_TO_EN_PROMPT, JA_TO_AR_PROMPT, DIRECT_JA_TO_AR_PROMPT, RE
 
 
 def call_api(prompt, max_tokens=8000, system=None):
-    """Call MiMo API (Anthropic format) with retry logic."""
+    """Call LongCat API (OpenAI format) with retry logic."""
     for attempt in range(MAX_RETRIES):
         try:
-            payload = {
-                "model": MIMO_MODEL,
-                "max_tokens": max_tokens,
-                "messages": [{"role": "user", "content": prompt}],
-            }
+            messages = []
             if system:
-                payload["system"] = system
+                messages.append({"role": "system", "content": system})
+            messages.append({"role": "user", "content": prompt})
 
             resp = requests.post(
                 MIMO_API_URL,
                 headers={
-                    "x-api-key": MIMO_API_KEY,
-                    "anthropic-version": "2023-06-01",
-                    "content-type": "application/json",
+                    "Authorization": f"Bearer {MIMO_API_KEY}",
+                    "Content-Type": "application/json",
                 },
-                json=payload,
+                json={
+                    "model": MIMO_MODEL,
+                    "max_tokens": max_tokens,
+                    "messages": messages,
+                },
                 timeout=300,
             )
 
@@ -42,9 +42,9 @@ def call_api(prompt, max_tokens=8000, system=None):
             resp.raise_for_status()
             data = resp.json()
 
-            # Anthropic format
-            if "content" in data and len(data["content"]) > 0:
-                content = data["content"][0].get("text")
+            # OpenAI format
+            if "choices" in data and len(data["choices"]) > 0:
+                content = data["choices"][0].get("message", {}).get("content")
                 if content:
                     return content
             return None

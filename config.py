@@ -1,10 +1,10 @@
 """Configuration for novel translation pipeline."""
 import os
 
-# MiMo API (Anthropic format)
+# LongCat API (OpenAI format)
 MIMO_API_KEY = os.environ.get("MIMO_API_KEY", "")
-MIMO_API_URL = os.environ.get("MIMO_API_URL", "https://token-plan-cn.xiaomimimo.com/anthropic/v1/messages")
-MIMO_MODEL = os.environ.get("MIMO_MODEL", "mimo-v2.5-pro")
+MIMO_API_URL = os.environ.get("MIMO_API_URL", "https://api.longcat.chat/openai/v1/chat/completions")
+MIMO_MODEL = os.environ.get("MIMO_MODEL", "LongCat-2.0-Preview")
 
 # Syosetu (成为小说家吧) API
 SYOSETU_API = "https://api.syosetu.com/novelapi/api/"
