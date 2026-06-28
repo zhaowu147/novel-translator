@@ -10,25 +10,25 @@ from prompts import JA_TO_EN_PROMPT, JA_TO_AR_PROMPT, DIRECT_JA_TO_AR_PROMPT, RE
 
 
 def call_api(prompt, max_tokens=8000, system=None):
-    """Call LongCat API (OpenAI format) with retry logic."""
+    """Call MiMo API (Anthropic format) with retry logic."""
     for attempt in range(MAX_RETRIES):
         try:
-            messages = []
+            payload = {
+                "model": MIMO_MODEL,
+                "max_tokens": max_tokens,
+                "messages": [{"role": "user", "content": prompt}],
+            }
             if system:
-                messages.append({"role": "system", "content": system})
-            messages.append({"role": "user", "content": prompt})
+                payload["system"] = system
 
             resp = requests.post(
                 MIMO_API_URL,
                 headers={
-                    "Authorization": f"Bearer {MIMO_API_KEY}",
-                    "Content-Type": "application/json",
+                    "x-api-key": MIMO_API_KEY,
+                    "anthropic-version": "2023-06-01",
+                    "content-type": "application/json",
                 },
-                json={
-                    "model": MIMO_MODEL,
-                    "max_tokens": max_tokens,
-                    "messages": messages,
-                },
+                json=payload,
                 timeout=300,
             )
 
@@ -42,17 +42,17 @@ def call_api(prompt, max_tokens=8000, system=None):
             resp.raise_for_status()
             data = resp.json()
 
-            # OpenAI format
-            if "choices" in data and len(data["choices"]) > 0:
-                content = data["choices"][0].get("message", {}).get("content")
-                if content:
-                    return content
+            # Anthropic format - find text content (skip thinking)
+            if "content" in data:
+                for item in data["content"]:
+                    if item.get("type") == "text" and item.get("text"):
+                        return item["text"]
             return None
 
         except Exception as e:
             print(f"    API error (attempt {attempt+1}): {e}")
             if attempt < MAX_RETRIES - 1:
-                time.sleep(2 ** attempt)
+                time.sleep(1)
     return None
 
 

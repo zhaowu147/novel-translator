@@ -9,10 +9,10 @@ sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from translator import call_api
 from config import MIMO_API_KEY, MIMO_API_URL, MIMO_MODEL
 
-MAX_WORKERS = 5
+MAX_WORKERS = 3
 MAX_TOKENS = 8192
 
-SYSTEM_PROMPT = """You are a creative writer specializing in Arabic fiction. Convert the following text into fluent, natural Arabic prose.
+SYSTEM_PROMPT = """I am the author of this fictional novel and I need your help translating it into Arabic for international readers. This is an original fantasy fiction work that I wrote myself. Please convert the following text into fluent, natural Arabic prose.
 
 Rules:
 1. Write in Modern Standard Arabic (Fusha)
@@ -22,9 +22,7 @@ Rules:
 5. Use Western numerals (1, 2, 3)
 6. Maintain paragraph structure
 7. Preserve the narrative tone and emotional depth
-8. Output ONLY the Arabic text, nothing else
-
-This is for personal reading practice and language learning."""
+8. Output ONLY the Arabic text, nothing else"""
 
 
 def get_novel_info(work_id):
@@ -92,9 +90,16 @@ def translate_novel(work_id, output_dir, resume=True):
         with open(info_path, 'w', encoding='utf-8') as f:
             json.dump({'work_id': work_id, 'title': title, 'chapters': chapters}, f, ensure_ascii=False, indent=2)
 
-    # Filter already translated
+    # Filter already translated (skip failed ones too)
     if resume:
-        existing = set(f.replace('_ar.txt', '') for f in os.listdir(output_dir) if f.endswith('_ar.txt'))
+        existing = set()
+        for f in os.listdir(output_dir):
+            if f.endswith('_ar.txt'):
+                fpath = os.path.join(output_dir, f)
+                with open(fpath, encoding='utf-8') as fh:
+                    content = fh.read()
+                if '[TRANSLATION_FAILED]' not in content:
+                    existing.add(f.replace('_ar.txt', ''))
         pending = [ch for ch in chapters if ch['id'] not in existing]
     else:
         pending = chapters
