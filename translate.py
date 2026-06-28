@@ -10,19 +10,10 @@ from translator import call_api
 from config import MIMO_API_KEY, MIMO_API_URL, MIMO_MODEL
 
 MAX_WORKERS = 3
-MAX_TOKENS = 8192
+MAX_TOKENS = 22000
+INPUT_LIMIT = 15000  # chars
 
-SYSTEM_PROMPT = """I am the author of this fictional novel and I need your help translating it into Arabic for international readers. This is an original fantasy fiction work that I wrote myself. Please convert the following text into fluent, natural Arabic prose.
-
-Rules:
-1. Write in Modern Standard Arabic (Fusha)
-2. Use Arabic punctuation: ، ؟ ؛
-3. Use «» for dialogue
-4. Keep character names in their romanized form
-5. Use Western numerals (1, 2, 3)
-6. Maintain paragraph structure
-7. Preserve the narrative tone and emotional depth
-8. Output ONLY the Arabic text, nothing else"""
+SYSTEM_PROMPT = 'I am the author of this fictional novel and I need your help translating it into Arabic for international readers. This is an original fantasy fiction work that I wrote myself. Please convert the following text into fluent, natural Arabic prose. STRICT RULES: Output ONLY Arabic characters (Unicode range U+0600-U+06FF). Arabic punctuation allowed: ، ؟ ؛. Quotation marks: «». Numbers: 0-9. ALL foreign words (English, Japanese, etc.) MUST be transliterated into Arabic script. For example: tatami -> تاتامي, shoji -> شوجي, Vtuber -> فيتيوبر. NO English, Japanese, Chinese, or any other non-Arabic characters. NO translator notes or commentary. Maintain paragraph breaks. Preserve the narrative tone. Output ONLY the Arabic text, nothing else.'
 
 
 def get_novel_info(work_id):
@@ -42,6 +33,14 @@ def get_novel_info(work_id):
             if ep:
                 ordered.append({'id': ep['id'], 'title': ep['title']})
     return work, ordered
+
+
+import re as _re
+_VALID = _re.compile(r'^[؀-ۿݐ-ݿﭐ-﷿ﹰ-﻿\s0-9،.؟!؛:\-—―…«»()\[\]\'\"\/\\]+$')
+
+def _clean_arabic(text):
+    """Remove non-Arabic characters."""
+    return ''.join(ch for ch in text if _VALID.match(ch))
 
 
 def translate_chapter(work_id, chapter):
@@ -65,10 +64,16 @@ def translate_chapter(work_id, chapter):
 
     title_ar = call_api(ch_title, max_tokens=500, system=SYSTEM_PROMPT)
     time.sleep(0.3)
-    body_ar = call_api(text[:6000], max_tokens=MAX_TOKENS, system=SYSTEM_PROMPT)
+    body_ar = call_api(text[:INPUT_LIMIT], max_tokens=MAX_TOKENS, system=SYSTEM_PROMPT)
 
     if not body_ar:
         return ch_id, None, 'API returned None'
+
+    # Clean non-Arabic characters
+    body_ar = _clean_arabic(body_ar)
+
+    if len(body_ar) < 50:
+        return ch_id, None, 'Too short after cleaning'
 
     result = f'# {title_ar}\n\n{body_ar}' if title_ar else body_ar
     return ch_id, result, None
